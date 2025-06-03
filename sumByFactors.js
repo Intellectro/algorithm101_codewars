@@ -25,3 +25,21 @@ const sumOfDivided = (lst) => {
   const result = Array.from(primeSums.entries()).sort((a, b) => a[0] - b[0]);
   return result;
 }
+
+//! alternatively
+
+const sumOfDividedTwo = a => a
+  .reduce((r, e) => r.concat(getFactors(e)), [])
+  .filter((e, i, a) => i === a.indexOf(e))
+  .sort((x, y) => x - y)
+  .map(x => [x, a.reduce((r, e) => r + (e % x ? 0 : e), 0)]);
+ 
+const getFactors = n => {
+  const factors = [];
+  for (let i = 2, x = Math.abs(n); i <= x; i++)
+    while (n % i === 0) {
+      factors.push(i);
+      n /= i;
+    }
+  return factors;
+}
